@@ -165,6 +165,14 @@ def comment_page(movie_name):
     return htmlify("Comment",
                    comment_form_html_code(movie_name))
 
+def show_comments():
+    comments = []
+    comments_file = open("comments.txt","r")
+    for row in reader(comments_file):
+        comments = comments + [row]
+    return str(comments)
+    
+
 def save_comment(content):
     comment_text = request.POST['comment_text']
     comments_file = open('comments.txt','w')
@@ -174,9 +182,7 @@ def save_comment(content):
                    "kaydedildi: " + comment_text+ " " + content)
 
 
-def comments_page():
-    return "no such comment"
-    
+
 def server_static(path):
     return static_file(path, root='.')
 
@@ -185,7 +191,7 @@ route('/', 'GET', index)
 route('/sort', 'POST', order_page)
 route('/comments/<movie_name>', 'POST', comment_page)
 route('/save_comment/<content>', 'POST', save_comment)
-route('/comments', 'POST', comment_page)
+route('/comments', 'GET', show_comments)
 route('/static/<path>', 'GET', server_static)
 
 #####################################################################
