@@ -86,7 +86,7 @@ def sort_html_code():
                 </td>
             
                 <td class="odd">
-                    <input type="submit" value="Search and Sort"/><br/>
+                    <input type="submit" value="Search, Sort and Filter"/><br/>
                 </td>
             </tr>
         </table>
