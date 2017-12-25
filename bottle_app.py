@@ -38,7 +38,7 @@ def sort_html_code():
         <table>
             <tr>
                 <td class="odd">
-                    <span>Search</span></br>
+                    <span>Search</span><br/>
                     <input type="text" name="search" value="%s" placeholder = "Movie"/>
                 </td>
             
@@ -51,7 +51,7 @@ def sort_html_code():
             
                 <td class="odd">
                     <div>
-                        <span>Sort by</span></br>
+                        <span>Sort by</span><br/>
                         <select name="column_no">
                             <option value="1" %s>Year</option>
                             <option value="2" %s>IMDb</option>
@@ -61,7 +61,7 @@ def sort_html_code():
                 </td>
             
                 <td class="even">
-                    <span>Filter</span></br>
+                    <span>Filter</span><br/>
                     
                     <input type="checkbox" name="filter_no" value="1" %s/>Year
                     <select name="year_filter_type">
