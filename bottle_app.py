@@ -1,18 +1,20 @@
 
 #####################################################################
-### Assignment skeleton
-### You can alter the below code to make your own dynamic website.
-### The landing page for assignment 3 should be at /
+# Assignment skeleton
+# You can alter the below code to make your own dynamic website.
+# The landing page for assignment 3 should be at /
 #####################################################################
 
-from bottle import route, run, default_app, debug, request, static_file
+from bottle import route,  run,  default_app,  debug,  request,  static_file
 from csv import reader
 
 contents = []
-input_file = open("a2_input.csv","r")
+input_file = open("a2_input.csv",  "r")
 for row in reader(input_file):
     contents = contents + [row]
-def htmlify(title,text):
+    
+    
+def htmlify(title, text):
     page = """
     <!DOCTYPE html>
     <html lang="en">
@@ -29,8 +31,9 @@ def htmlify(title,text):
             </div>
         </body>
     </html>
-    """ % (title, text)
+    """ % (title,  text)
     return page
+
 
 def sort_html_code():
     form = '''
@@ -86,7 +89,7 @@ def sort_html_code():
                 </td>
             
                 <td class="odd">
-                    <input type="submit" value="Search, Sort and Filter"/><br/>
+                    <input type="submit" value="Search,  Sort and Filter"/><br/>
                 </td>
             </tr>
         </table>
@@ -95,7 +98,7 @@ def sort_html_code():
     return form
 
 
-def sort_search(list, desc_or_asc, column_no, search, filter_no, year_filter_type, imdb_filter_type, duration_filter_type, year_filter_text,imdb_filter_text, duration_filter_text):
+def sort_search(list,  desc_or_asc,  column_no,  search,  filter_no,  year_filter_type,  imdb_filter_type,  duration_filter_type,  year_filter_text, imdb_filter_text,  duration_filter_text):
 
     ordered_list = []
 
@@ -103,7 +106,6 @@ def sort_search(list, desc_or_asc, column_no, search, filter_no, year_filter_typ
         if search.lower() in str(row[0]).lower():
             ordered_list += [row]
 
-    
     if "1" in filter_no:
         temporary_list = ordered_list
         ordered_list = []
@@ -116,7 +118,6 @@ def sort_search(list, desc_or_asc, column_no, search, filter_no, year_filter_typ
                 if int(row[1]) < int(year_filter_text):
                     ordered_list += [row]
 
-    
     if "2" in filter_no:
         temporary_list = ordered_list
         ordered_list = []
@@ -165,6 +166,7 @@ def sort_search(list, desc_or_asc, column_no, search, filter_no, year_filter_typ
                 break
     return ordered_list
 
+
 def get_table_html_code(list):
     if len(list) == 0:
         return "<h4>Not Found!\nPlease try again</h4>"
@@ -183,9 +185,11 @@ def get_table_html_code(list):
         table_code += "<tr class=\"tr_list\">\n%s\n</tr>\n" % row
     return '''<table id="list_table" >\n%s\n</table>''' % table_code
 
+
 def index():
-    return htmlify("Time Travel Movies",
-                   sort_html_code() % ("","checked","","selected","","","","selected","","2000","","selected","","7","","selected","","90") + get_table_html_code(contents))
+    return htmlify("Time Travel Movies", 
+                   sort_html_code() % ("", "checked", "", "selected", "", "", "", "selected", "", "2000", "", "selected", "", "7", "", "selected", "", "90") + get_table_html_code(contents))
+
 
 def order_page():
     desc_or_asc = request.POST['desc_or_asc']
@@ -198,8 +202,7 @@ def order_page():
     year_filter_text = request.POST['year_filter_text']
     imdb_filter_text = request.POST['imdb_filter_text']
     duration_filter_text = request.POST['duration_filter_text']
-    
-    
+
     if desc_or_asc == "descending":
         desc="checked"
         asce=""
@@ -248,8 +251,6 @@ def order_page():
         ift0 = "selected"
     elif imdb_filter_type == "1":
         ift1 = "selected"
-
-
     dft0 = ""
     dft1 = ""
     if duration_filter_type == "0":
@@ -257,24 +258,24 @@ def order_page():
     elif duration_filter_type == "1":
         dft1 = "selected"
         
-    sort_html = sort_html_code() % (search,desc,asce,col1,col2,col3,check1,yft0,yft1,year_filter_text,check2,ift0,ift1,imdb_filter_text,check3,dft0,dft1,duration_filter_text)
+    sort_html = sort_html_code() % (search, desc, asce, col1, col2, col3, check1, yft0, yft1, year_filter_text, check2, ift0, ift1, imdb_filter_text, check3, dft0, dft1, duration_filter_text)
 
-    return htmlify("Time Travel Movies",
-                   sort_html + get_table_html_code(sort_search(contents, desc_or_asc, int(column_no),search, filter_no, year_filter_type, imdb_filter_type, duration_filter_type, year_filter_text,imdb_filter_text, duration_filter_text)))
+    return htmlify("Time Travel Movies", 
+                   sort_html + get_table_html_code(sort_search(contents,  desc_or_asc,  int(column_no), search,  filter_no,  year_filter_type,  imdb_filter_type,  duration_filter_type,  year_filter_text, imdb_filter_text,  duration_filter_text)))
 
 
 def server_static(path):
-    return static_file(path, root='.')
+    return static_file(path,  root='.')
 
 
-route('/', 'GET', index)
-route('/sort_search', 'POST', order_page)
-route('/static/<path>', 'GET', server_static)
+route('/',  'GET',  index)
+route('/sort_search',  'POST',  order_page)
+route('/static/<path>',  'GET',  server_static)
 
 #####################################################################
-### Don't alter the below code.
-### It allows this website to be hosted on Heroku
-### OR run on your computer.
+# Don't alter the below code.
+# It allows this website to be hosted on Heroku
+# OR run on your computer.
 #####################################################################
 
 # This line makes bottle give nicer error messages
