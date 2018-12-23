@@ -5,11 +5,11 @@
 # The landing page for assignment 3 should be at /
 #####################################################################
 
-from bottle import route,  run,  default_app,  debug,  request,  static_file
+from bottle import route, run, default_app, debug, request, static_file
 from csv import reader
 
 contents = []
-input_file = open("a2_input.csv",  "r")
+input_file = open("a2_input.csv", "r")
 for row in reader(input_file):
     contents = contents + [row]
     
@@ -31,7 +31,7 @@ def htmlify(title, text):
             </div>
         </body>
     </html>
-    """ % (title,  text)
+    """ % (title, text)
     return page
 
 
@@ -89,7 +89,7 @@ def sort_html_code():
                 </td>
             
                 <td class="odd">
-                    <input type="submit" value="Search,  Sort and Filter"/><br/>
+                    <input type="submit" value="Search, Sort and Filter"/><br/>
                 </td>
             </tr>
         </table>
@@ -98,7 +98,7 @@ def sort_html_code():
     return form
 
 
-def sort_search(list,  desc_or_asc,  column_no,  search,  filter_no,  year_filter_type,  imdb_filter_type,  duration_filter_type,  year_filter_text, imdb_filter_text,  duration_filter_text):
+def sort_search(list, desc_or_asc, column_no, search, filter_no, year_filter_type, imdb_filter_type, duration_filter_type, year_filter_text, imdb_filter_text, duration_filter_text):
 
     ordered_list = []
 
@@ -261,16 +261,16 @@ def order_page():
     sort_html = sort_html_code() % (search, desc, asce, col1, col2, col3, check1, yft0, yft1, year_filter_text, check2, ift0, ift1, imdb_filter_text, check3, dft0, dft1, duration_filter_text)
 
     return htmlify("Time Travel Movies", 
-                   sort_html + get_table_html_code(sort_search(contents,  desc_or_asc,  int(column_no), search,  filter_no,  year_filter_type,  imdb_filter_type,  duration_filter_type,  year_filter_text, imdb_filter_text,  duration_filter_text)))
+                   sort_html + get_table_html_code(sort_search(contents, desc_or_asc, int(column_no), search, filter_no, year_filter_type, imdb_filter_type, duration_filter_type, year_filter_text, imdb_filter_text, duration_filter_text)))
 
 
 def server_static(path):
-    return static_file(path,  root='.')
+    return static_file(path, root='.')
 
 
-route('/',  'GET',  index)
-route('/sort_search',  'POST',  order_page)
-route('/static/<path>',  'GET',  server_static)
+route('/', 'GET', index)
+route('/sort_search', 'POST', order_page)
+route('/static/<path>', 'GET', server_static)
 
 #####################################################################
 # Don't alter the below code.
