@@ -284,5 +284,5 @@ debug(True)
 app = default_app()
 # The below code is necessary for running this bottle app standalone on your computer.
 if __name__ == "__main__":
-  run()
+  run(host="0.0.0.0")
 
