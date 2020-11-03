@@ -5,4 +5,4 @@ WORKDIR /app
 
 RUN pip install -r requirements.txt
 
-ENTRYPOINT bottle_app.py
+ENTRYPOINT python bottle_app.py
